@@ -44,7 +44,7 @@ code/merge-corpora.pl --major espn-nba-news-archive --minor espn-nba-news-archiv
 
 The above steps can be automated via cron to refresh the major corpus periodically.
 
-I tried to get each article from the last five years. I have found that the server that ESPN uses for this archive site is not responsive a lot of times. About half of the months could not be pulled (various 5XX errors observed). For the months that were reachable, there were anywhere from 200 to 900 articles in a month, with an average around 600. Out of the 20k+ articles listed, some were dead links. About 88% of the listed articles were reachable, and that's around 18k articles.
+I tried to get each article from the last five years. I have found that the server that ESPN uses for this archive site is not responsive a lot of times. About half of the months could not be pulled (various 5XX errors observed). For the months that were reachable, there were anywhere from 200 to 900 articles in a month, with an average around 600. Out of the 20k+ articles listed, some were dead links. About 88% of the listed articles were reachable, and that's around 18k articles. Detailed counts of articles obtained can be found in this [Google spreadsheet].
 
 Quite a bit of time was put into the examination of site HTML and formulating the LibXML parser through appropriate XPath expressions. Along the way numerous one-off cases and exceptions were identified and worked around. Typical pains of web scraping.
 
@@ -84,3 +84,4 @@ pip install Flask
 
 [MeTA toolkit]: https://meta-toolkit.org/
 [metapy]: https://github.com/meta-toolkit/metapy
+[Google spreadsheet]: https://goo.gl/kDG6M7
