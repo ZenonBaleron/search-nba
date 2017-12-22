@@ -1,1 +1,5 @@
+#!/bin/env bash
 
+wget http://cs410-search-nba.s3-website-us-west-2.amazonaws.com/corpus.zip
+
+unzip corpus.zip
