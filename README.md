@@ -24,7 +24,7 @@ Here's a walkthrough of what it took to bring up this search engine on an AWS EC
 
 An AWS account was created, and an instance was launched. The size of the instance was t2.micro, the image used was ami-7707a10f, and the storage was an 8GB EBS gp2 volume. At the time of creation, the SSH key was downloaded to the local workstation to facilitate remote shell access later. The instance was configured with a public IP address.
 
-A special Security Group was created for this instance. TCP ports 22 and 4747 were opened to allow external access to SSH and the Flask server, respectively.
+A special Security Group was created for this instance. TCP ports 22 and 4410 were opened to allow external access to SSH and the Flask server, respectively.
 
 The EC2 instance comes pretty bare, so we install some basic requirements:
 - pip
@@ -116,9 +116,19 @@ Corpus can be indexed and searched
 - through the python command line, by leveraging metapy calls
 - through the web interface, which is a front to the metapy calls
 
-'''python
+'''bash
+# pull the corpus
+cd /home/ec2-user/search-nba/data
+bash unzip-corpus-here
 
+# build the index
+cd /home/ec2-user/search-nba/data/corpus
+python query-nba "Chicago Bulls champions"
 '''
+
+Web interface should be available at the following link eventually, although to be honest I haven't had time to quite finish it yet. Assembling the corpus took most of the time alloted for this project.
+
+http://52.24.255.21:4410/search-nba/
 
 [MeTA toolkit]: https://meta-toolkit.org/
 [metapy]: https://github.com/meta-toolkit/metapy
