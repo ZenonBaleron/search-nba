@@ -104,12 +104,23 @@ search-nba/code/merge-corpora.pl --major nba --minor espn-nba-news-archive.20171
 
 The above steps can be automated via cron to refresh the major corpus periodically.
 
-I tried to get each article from the last five years. I have found that the server that ESPN uses for this archive site is not responsive a lot of times. About half of the months could not be pulled (various 5XX errors observed). For the months that were reachable, there were anywhere from 200 to 900 articles in a month, with an average around 600. Out of the 20k+ articles listed, some were dead links. About 88% of the listed articles were reachable, and that's around 18k articles. Detailed counts of articles obtained can be found in this [Google spreadsheet].
+I tried to get each article from the last five years. I have found that the server that ESPN uses for this archive site is not responsive a lot of times. About half of the months could not be pulled (various 5XX errors observed). For the months that were reachable, there were anywhere from 200 to 900 articles in a month, with an average around 600. Out of the 23k+ articles listed, some were dead links. About 89% of the listed articles were reachable, and that's around 20k articles. Size of this corpus is 40MB as ZIP and 120MB raw.
+- Detailed counts of articles obtained can be found in this [Google spreadsheet].
+- The current corpus can be obtained from S3: [Download ZIP of corpus]
 
 Quite a bit of time was put into the examination of site HTML and formulating the LibXML parser through appropriate XPath expressions. Along the way numerous one-off cases and exceptions were identified and worked around. Typical pains of web scraping.
 
 ## usage
 
+Corpus can be indexed and searched
+- through the python command line, by leveraging metapy calls
+- through the web interface, which is a front to the metapy calls
+
+'''python
+
+'''
+
 [MeTA toolkit]: https://meta-toolkit.org/
 [metapy]: https://github.com/meta-toolkit/metapy
 [Google spreadsheet]: https://goo.gl/kDG6M7
+[Download ZIP of corpus]: http://cs410-search-nba.s3-website-us-west-2.amazonaws.com/corpus.zip
