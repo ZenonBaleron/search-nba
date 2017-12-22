@@ -15,12 +15,10 @@ MeTA was used on text data from publically available articles with NBA as the ma
 
 Details of implementation can be demonstrated by an outline of installation. To get the entire system up, one needs to combine the following three elements:
 - system
-- data
 - software
+- data
 
-### installation
-
-#### system provisioning
+### system provisioning
 
 Here's a walkthrough of what it took to bring up this search engine on an AWS EC2 instance.
 
@@ -28,7 +26,16 @@ An AWS account was created, and an instance was launched. The size of the instan
 
 A special Security Group was created for this instance. TCP ports 22 and 4747 were opened to allow external access to SSH and the Flask server, respectively.
 
+The EC2 instance comes pretty bare, so we install some basic requirements:
+- pip
+- virtualenv
+- metapy
+- flask
+
 ```bash
+# base of execution is /home/ec2-user
+cd
+
 # install pip
 wget https://bootstrap.pypa.io/get-pip.py
 sudo python get-pip.py
@@ -61,22 +68,38 @@ Any number of document sources is supported, but one source is described here: [
 Each specific source needs a custom scraper. For this source I created a perl script that is invoked in the following way:
 
 ```bash
+# base of execution is /home/ec2-user
+cd
+
 # get the list of links to December 2017 articles, and build a file corpus
-code/fetch/espn-nba-news-archive.pl --year 2017 --month 12
+search-nba/code/fetch/espn-nba-news-archive.pl --year 2017 --month 12
 ```
 
-The output of this script is a valid metapy **file corpus**, consisting of one file per document and a common metadata.dat file. The directory containg this corpus might be:
+The output of this script is a valid metapy **file corpus**, consisting of one file per document and a common **metadata.dat** file.
+
+The directory containg this corpus might be:
 
 ```bash
 # note the date-time suffix indicating the time of the data scrape
-data/corpus/espn-nba-news-archive.20171218091319
+search-nba/data/corpus/espn-nba-news-archive.20171218091319
+```
+
+The metadata fields are like this:
+```
+metadata = [
+  { name = "path",     type = "string" }, # name of the file is the md5 of the original URL
+  { name = "date_pub", type = "uint" },   # epoch time of when the article was published
+  { name = "date_got", type = "uint" },   # epoch time of ehrn the article was scraped
+  { name = "src_tag",  type = "string" }, # tag associated with the source of the article
+  { name = "path",     type = "string" }  # the URL of the original article
+]
 ```
 
 Once several per-month corpora are pulled, they may be merged into each other. For this I also wrote a perl script. It can be invoked like so:
 
 ```bash
 # merge the 'minor' corpus into the 'major' corpus
-code/merge-corpora.pl --major espn-nba-news-archive --minor espn-nba-news-archive.20171218091319
+search-nba/code/merge-corpora.pl --major nba --minor espn-nba-news-archive.20171218091319
 ```
 
 The above steps can be automated via cron to refresh the major corpus periodically.
