@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+### If you get the error bellow, that means you have forgotten to activate the appropariate virtualenv
+### $ python query-nba 
+# Traceback (most recent call last):
+#   File "query-nba", line 4, in <module>
+#     import metapy
+### HOW TO FIX: cd ; source env/search-nba/bin/activate ; cd - ;
+
 import sys
 import metapy
 
