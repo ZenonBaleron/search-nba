@@ -19,10 +19,10 @@ print("CORPUS: num_docs={} unique_terms={} avg_doc_length={}".format( idx.num_do
 
 ranker = metapy.index.OkapiBM25()
 query_doc = metapy.index.Document()
-query_doc.content(query)
+query_doc.content("Chicago Bulls Champions")
 top_docs = ranker.score(idx, query_doc, num_results=10)
 
 for num, (d_id, _) in enumerate(top_docs):
     url = idx.metadata(d_id).get('url')
     md5 = idx.metadata(d_id).get('md5_url')
-    print("{}: {} score\n{}".format(num + 1, md5, url))
+    print("{}: {}\n{}".format(num + 1, md5, url))
